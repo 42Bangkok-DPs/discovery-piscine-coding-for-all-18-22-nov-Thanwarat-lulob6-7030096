@@ -68,8 +68,8 @@ def update_board(board, old_pos, new_pos, piece):
 if __name__ == "__main__":
     board = [
         ". . . . . . . .",
+        ". . P . . . . .",
         ". . . . . . . .",
-        ". . P . P . . .",
         ". . . K . . . .",
         ". . . . . . R .",
         ". N . . Q . . .",
