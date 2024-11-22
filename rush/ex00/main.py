@@ -7,7 +7,7 @@ def is_king_in_check(board):
         return None
 
     def is_attacked_by_pawn(king_row, king_col):
-        directions = [(-1, -1), (-1, 1)] 
+        directions = [(-1, -1), (-1, 1)]  # Pawn attacks upwards
         for dr, dc in directions:
             nr, nc = king_row + dr, king_col + dc
             if 0 <= nr < size and 0 <= nc < size and board[nr][nc] == 'P':
@@ -27,10 +27,21 @@ def is_king_in_check(board):
                     break
         return False
 
+    def is_attacked_by_knight(king_row, king_col):
+        knight_moves = [
+            (-2, -1), (-2, 1), (2, -1), (2, 1),
+            (-1, -2), (-1, 2), (1, -2), (1, 2)
+        ]
+        for dr, dc in knight_moves:
+            nr, nc = king_row + dr, king_col + dc
+            if 0 <= nr < size and 0 <= nc < size and board[nr][nc] == 'N':
+                return True
+        return False
+
     def is_safe(row, col):
-        # Check if the position is safe from any attack
         return not (
             is_attacked_by_pawn(row, col)
+            or is_attacked_by_knight(row, col)
             or is_attacked_in_direction(row, col, [(-1, 0), (1, 0), (0, -1), (0, 1)], {'R', 'Q'})
             or is_attacked_in_direction(row, col, [(-1, -1), (-1, 1), (1, -1), (1, 1)], {'B', 'Q'})
         )
@@ -54,18 +65,18 @@ def update_board(board, old_pos, new_pos, piece):
     board[old_row][old_col] = '.'
     board[new_row][new_col] = piece
 
-
 if __name__ == "__main__":
     board = [
-        ". . . . . . .",
-        ". . . . . . .",
-        ". . P . P . .",
-        ". . . K . . .",
-        ". . . . . . .",
-        ". . . . . . .",
-        ". . . . . . ."
+        ". . . . . . . .",
+        ". . . . . . . .",
+        ". . P . P . . .",
+        ". . . K . . . .",
+        ". . . . . . R .",
+        ". N . . Q . . .",
+        ". . . . . . . .",
+        ". . . . . . . ."
     ]
-  
+
     board = [row.split() for row in board]
 
     is_king_in_check(board)
