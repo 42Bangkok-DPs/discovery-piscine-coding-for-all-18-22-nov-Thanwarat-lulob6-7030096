@@ -7,7 +7,7 @@ def is_king_in_check(board):
         return None
 
     def is_attacked_by_pawn(king_row, king_col):
-        directions = [(-1, -1), (-1, 1)]  # Pawn attacks upwards
+        directions = [(-1, -1), (-1, 1)]
         for dr, dc in directions:
             nr, nc = king_row + dr, king_col + dc
             if 0 <= nr < size and 0 <= nc < size and board[nr][nc] == 'P':
